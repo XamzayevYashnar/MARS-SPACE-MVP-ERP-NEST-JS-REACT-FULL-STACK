@@ -1,0 +1,43 @@
+{
+  "hero": {
+    "eyebrow": "MARS SPACE // IT LEARNING CENTRE",
+    "title": "Learn the profession of the future here",
+    "subtitle": "Enter IT with practising mentors, small groups and real projects."
+  },
+  "missionBoard": {
+    "title": "Upcoming groups",
+    "col": { "group": "Group", "course": "Course", "start": "Start", "schedule": "Schedule", "seats": "Seats" },
+    "empty": "No open groups yet"
+  },
+  "directions": { "title": "Directions", "courses": "{{count}} courses" },
+  "featured": { "title": "Featured courses", "cta": "All courses" },
+  "why": {
+    "title": "Why Mars Space",
+    "smallGroups": { "title": "Small groups", "desc": "Attention for every student." },
+    "mentors": { "title": "Practising mentors", "desc": "Taught by specialists working in the field." },
+    "portfolio": { "title": "Project portfolio", "desc": "Build a portfolio on real projects." },
+    "career": { "title": "Career support", "desc": "We help graduates find a job." }
+  },
+  "teachers": { "title": "Teachers" },
+  "process": {
+    "title": "How it starts",
+    "application": { "title": "Application", "desc": "Leave a request on the site." },
+    "interview": { "title": "Interview", "desc": "We clarify your goals." },
+    "trial": { "title": "Trial lesson", "desc": "Attend a free trial lesson." },
+    "enrolment": { "title": "Enrolment", "desc": "Join a group and start learning." }
+  },
+  "testimonials": { "title": "Testimonials" },
+  "news": { "title": "News" },
+  "faq": {
+    "title": "Frequently asked questions",
+    "items": [
+      { "q": "How long does the course last?", "a": "Depending on the course, 4–8 months." },
+      { "q": "Do I need prior knowledge?", "a": "Many courses start from scratch." },
+      { "q": "Is there online learning?", "a": "Yes, some courses are online or hybrid." },
+      { "q": "How does payment work?", "a": "Monthly or full payment is possible." },
+      { "q": "Is a certificate issued?", "a": "Graduates receive a certificate." },
+      { "q": "Do you help with employment?", "a": "Yes, we support your career." }
+    ]
+  },
+  "cta": { "title": "Start today", "subtitle": "Leave a request and we'll get in touch." }
+}

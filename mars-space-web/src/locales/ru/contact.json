@@ -1,0 +1,20 @@
+{
+  "eyebrow": "MARS SPACE // КОНТАКТЫ",
+  "title": "Свяжитесь с нами",
+  "lead": "Если есть вопросы — напишите или позвоните.",
+  "form": {
+    "name": "Имя",
+    "namePlaceholder": "Ваше имя",
+    "phone": "Телефон",
+    "email": "Email",
+    "emailPlaceholder": "email@example.com",
+    "subject": "Тема",
+    "subjectPlaceholder": "О чём вопрос?",
+    "message": "Сообщение",
+    "messagePlaceholder": "Напишите ваше сообщение",
+    "submit": "Отправить",
+    "successTitle": "Сообщение отправлено",
+    "successDescription": "Мы скоро ответим."
+  },
+  "info": { "phone": "Телефон", "email": "Email", "address": "Адрес", "hours": "Часы работы" }
+}

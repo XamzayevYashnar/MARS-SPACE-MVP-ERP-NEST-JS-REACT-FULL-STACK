@@ -1,0 +1,19 @@
+{
+  "required": "Bu maydon to'ldirilishi shart",
+  "phone": { "invalid": "To'g'ri telefon raqamini kiriting: +998 XX XXX XX XX" },
+  "name": { "min": "Kamida 3 ta belgi kiriting", "max": "120 ta belgidan oshmasin" },
+  "email": { "invalid": "To'g'ri elektron pochtani kiriting" },
+  "message": { "min": "Kamida 10 ta belgi kiriting" },
+  "errors": {
+    "VALIDATION_ERROR": "Ma'lumotlarni tekshirib qayta yuboring",
+    "INVALID_CREDENTIALS": "Login yoki parol noto'g'ri",
+    "UNAUTHORIZED": "Avval tizimga kiring",
+    "FORBIDDEN": "Bu amal uchun ruxsat yo'q",
+    "NOT_FOUND": "Ma'lumot topilmadi",
+    "CONFLICT": "Bunday yozuv allaqachon mavjud",
+    "TOKEN_EXPIRED": "Sessiya muddati tugadi",
+    "NETWORK_ERROR": "Tarmoq xatosi. Internetni tekshiring",
+    "TIMEOUT": "So'rov vaqti tugadi",
+    "UNKNOWN": "Noma'lum xatolik yuz berdi"
+  }
+}

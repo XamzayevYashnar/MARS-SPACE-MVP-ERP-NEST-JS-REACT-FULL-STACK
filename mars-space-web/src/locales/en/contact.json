@@ -1,0 +1,20 @@
+{
+  "eyebrow": "MARS SPACE // CONTACT",
+  "title": "Get in touch",
+  "lead": "If you have questions, write to us or call.",
+  "form": {
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "phone": "Phone",
+    "email": "Email",
+    "emailPlaceholder": "email@example.com",
+    "subject": "Subject",
+    "subjectPlaceholder": "What is it about?",
+    "message": "Message",
+    "messagePlaceholder": "Write your message",
+    "submit": "Send",
+    "successTitle": "Message sent",
+    "successDescription": "We'll reply shortly."
+  },
+  "info": { "phone": "Phone", "email": "Email", "address": "Address", "hours": "Working hours" }
+}

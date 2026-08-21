@@ -1,0 +1,29 @@
+{
+  "eyebrow": "MARS SPACE // CATALOG",
+  "title": "Kurslar",
+  "filters": {
+    "search": "Qidirish",
+    "searchPlaceholder": "Kurs nomi...",
+    "level": "Daraja",
+    "format": "Format",
+    "category": "Yo'nalish",
+    "all": "Barchasi",
+    "clear": "Tozalash",
+    "results": "{{count}} ta kurs topildi"
+  },
+  "detail": {
+    "outcomes": "Nimalarni o'rganasiz",
+    "requirements": "Talablar",
+    "syllabus": "Dastur",
+    "teachers": "O'qituvchilar",
+    "related": "O'xshash kurslar",
+    "enroll": "Ariza qoldirish",
+    "duration": "Davomiyligi",
+    "lessonsPerWeek": "Haftasiga",
+    "lessonLength": "Dars davomiyligi",
+    "format": "Format",
+    "nextIntake": "Keyingi qabul",
+    "minutes": "{{count}} daqiqa",
+    "weeks": "{{count}} hafta"
+  }
+}

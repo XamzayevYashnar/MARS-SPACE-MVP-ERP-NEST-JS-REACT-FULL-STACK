@@ -1,0 +1,3374 @@
+{
+  "info": {
+    "name": "Mars Space LMS API",
+    "description": "Generated from the OpenAPI document. Set {{baseUrl}} and log in with the Auth > login request; it stores {{accessToken}} and {{refreshToken}} automatically.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000",
+      "type": "string"
+    },
+    {
+      "key": "apiPrefix",
+      "value": "api/v1",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refreshToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "adminEmail",
+      "value": "admin@marsspace.uz",
+      "type": "string"
+    },
+    {
+      "key": "adminPassword",
+      "value": "ChangeMe123!",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Admin: Categories",
+      "item": [
+        {
+          "name": "List every category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/categories?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&isActive=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "categories"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "isActive",
+                  "value": "true",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create a category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "categories"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"description\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"slug\": \"frontend\",\n  \"iconKey\": \"layout\",\n  \"colorHex\": \"#3B82F6\",\n  \"sortOrder\": 0,\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Apply a new ordering to the category list",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/categories/reorder",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "categories",
+                "reorder"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"id\": \"clx1a2b3c4d5e6f7g8h9i0j1\",\n      \"sortOrder\": 0\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get one category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/categories/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "categories",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update a category",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/categories/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "categories",
+                "{id}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"description\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"slug\": \"frontend\",\n  \"iconKey\": \"layout\",\n  \"colorHex\": \"#3B82F6\",\n  \"sortOrder\": 0,\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete a category that holds no courses",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/categories/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "categories",
+                "{id}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Courses",
+      "item": [
+        {
+          "name": "List every course, drafts included",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/courses?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&categoryId=&level=&format=&isPublished=true&isFeatured=true&teacherId=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "categoryId",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "level",
+                  "value": "",
+                  "description": "one of: BEGINNER, INTERMEDIATE, ADVANCED",
+                  "disabled": true
+                },
+                {
+                  "key": "format",
+                  "value": "",
+                  "description": "one of: OFFLINE, ONLINE, HYBRID",
+                  "disabled": true
+                },
+                {
+                  "key": "isPublished",
+                  "value": "true",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "isFeatured",
+                  "value": "true",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "teacherId",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create a course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "courses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"shortDescription\": {\n    \"uz\": \"Noldan to‘liq web dasturchi bo‘ling\",\n    \"ru\": \"Станьте веб-разработчиком с нуля\",\n    \"en\": \"Become a web developer from scratch\"\n  },\n  \"description\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"outcomes\": {\n    \"uz\": [\n      \"HTML/CSS asoslari\",\n      \"JavaScript ES6+\"\n    ],\n    \"ru\": [\n      \"\"\n    ],\n    \"en\": [\n      \"\"\n    ]\n  },\n  \"requirements\": {\n    \"uz\": [\n      \"HTML/CSS asoslari\",\n      \"JavaScript ES6+\"\n    ],\n    \"ru\": [\n      \"\"\n    ],\n    \"en\": [\n      \"\"\n    ]\n  },\n  \"syllabus\": [\n    {\n      \"order\": 1,\n      \"title\": {},\n      \"durationWeeks\": 4,\n      \"topics\": {}\n    }\n  ],\n  \"categoryId\": \"clx1a2b3c4d5e6f7g8h9i0j1\",\n  \"slug\": \"frontend-react\",\n  \"level\": \"BEGINNER\",\n  \"format\": \"OFFLINE\",\n  \"durationMonths\": 6,\n  \"lessonsPerWeek\": 3,\n  \"lessonMinutes\": 90,\n  \"price\": 1800000,\n  \"discountPrice\": 1500000,\n  \"currency\": \"UZS\",\n  \"coverImageUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/cover.webp\",\n  \"promoVideoUrl\": \"https://youtube.com/watch?v=dQw4w9WgXcQ\",\n  \"metaTitle\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"metaDescription\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"isFeatured\": true,\n  \"isPublished\": true,\n  \"sortOrder\": 0,\n  \"teacherIds\": [\n    \"\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get one course",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/courses/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "courses",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update a course",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/courses/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "courses",
+                "{id}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"shortDescription\": {\n    \"uz\": \"Noldan to‘liq web dasturchi bo‘ling\",\n    \"ru\": \"Станьте веб-разработчиком с нуля\",\n    \"en\": \"Become a web developer from scratch\"\n  },\n  \"description\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"outcomes\": {\n    \"uz\": [\n      \"HTML/CSS asoslari\",\n      \"JavaScript ES6+\"\n    ],\n    \"ru\": [\n      \"\"\n    ],\n    \"en\": [\n      \"\"\n    ]\n  },\n  \"requirements\": {\n    \"uz\": [\n      \"HTML/CSS asoslari\",\n      \"JavaScript ES6+\"\n    ],\n    \"ru\": [\n      \"\"\n    ],\n    \"en\": [\n      \"\"\n    ]\n  },\n  \"syllabus\": [\n    {\n      \"order\": 1,\n      \"title\": {},\n      \"durationWeeks\": 4,\n      \"topics\": {}\n    }\n  ],\n  \"categoryId\": \"clx1a2b3c4d5e6f7g8h9i0j1\",\n  \"slug\": \"frontend-react\",\n  \"level\": \"BEGINNER\",\n  \"format\": \"OFFLINE\",\n  \"durationMonths\": 6,\n  \"lessonsPerWeek\": 3,\n  \"lessonMinutes\": 90,\n  \"price\": 1800000,\n  \"discountPrice\": 1500000,\n  \"currency\": \"UZS\",\n  \"coverImageUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/cover.webp\",\n  \"promoVideoUrl\": \"https://youtube.com/watch?v=dQw4w9WgXcQ\",\n  \"metaTitle\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"metaDescription\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"isFeatured\": true,\n  \"isPublished\": true,\n  \"sortOrder\": 0,\n  \"teacherIds\": [\n    \"\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete a course that has no groups",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/courses/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "courses",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Publish or unpublish a course",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/courses/{id}/publish",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "courses",
+                "{id}",
+                "publish"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add or remove a course from the home-page carousel",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/courses/{id}/feature",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "courses",
+                "{id}",
+                "feature"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isFeatured\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Groups",
+      "item": [
+        {
+          "name": "List groups; filter by courseId, teacherId or status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/groups?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&courseId=&teacherId=&status=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "groups"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "courseId",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "teacherId",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "description": "one of: FORMING, ACTIVE, PAUSED, FINISHED, CANCELLED",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create a group",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/groups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "groups"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"FS-2026-03\",\n  \"courseId\": \"clx1a2b3c4d5e6f7g8h9i0j1\",\n  \"teacherId\": \"clx1a2b3c4d5e6f7g8h9i0j2\",\n  \"startDate\": \"2026-09-01\",\n  \"endDate\": \"2027-03-01\",\n  \"weekDays\": [\n    \"MON\",\n    \"WED\",\n    \"FRI\"\n  ],\n  \"startTime\": \"18:00\",\n  \"endTime\": \"19:30\",\n  \"roomName\": \"Mars-1\",\n  \"capacity\": 15,\n  \"status\": \"FORMING\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get one group",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/groups/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "groups",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update a group",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/groups/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "groups",
+                "{id}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"FS-2026-03\",\n  \"courseId\": \"clx1a2b3c4d5e6f7g8h9i0j1\",\n  \"teacherId\": \"clx1a2b3c4d5e6f7g8h9i0j2\",\n  \"startDate\": \"2026-09-01\",\n  \"endDate\": \"2027-03-01\",\n  \"weekDays\": [\n    \"MON\",\n    \"WED\",\n    \"FRI\"\n  ],\n  \"startTime\": \"18:00\",\n  \"endTime\": \"19:30\",\n  \"roomName\": \"Mars-1\",\n  \"capacity\": 15,\n  \"status\": \"FORMING\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete a group that holds no students",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/groups/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "groups",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Change the group status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/groups/{id}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "groups",
+                "{id}",
+                "status"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"FORMING\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Leads",
+      "item": [
+        {
+          "name": "List leads",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/leads?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&status=&source=&courseId=&assignedToId=&dateFrom=2026-08-01&dateTo=2026-08-31",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "leads"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "description": "one of: NEW, IN_PROGRESS, CONTACTED, ENROLLED, REJECTED",
+                  "disabled": true
+                },
+                {
+                  "key": "source",
+                  "value": "",
+                  "description": "one of: WEBSITE_FORM, COURSE_PAGE, HERO_FORM, TELEGRAM, INSTAGRAM, PHONE, WALK_IN, OTHER",
+                  "disabled": true
+                },
+                {
+                  "key": "courseId",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "assignedToId",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "dateFrom",
+                  "value": "2026-08-01",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "dateTo",
+                  "value": "2026-08-31",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Filters: status, source, courseId, assignedToId, dateFrom, dateTo, search."
+          }
+        },
+        {
+          "name": "Get one lead",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/leads/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "leads",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete a lead",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/leads/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "leads",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Move a lead through the pipeline",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/leads/{id}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "leads",
+                "{id}",
+                "status"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"NEW\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Assign the lead to a staff member, or unassign it",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/leads/{id}/assign",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "leads",
+                "{id}",
+                "assign"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assignedToId\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Replace the internal note on a lead",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/leads/{id}/note",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "leads",
+                "{id}",
+                "note"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"adminNote\": \"Ertaga 15:00 da qayta qo‘ng‘iroq qilish\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Convert a lead into a student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/leads/{id}/convert",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "leads",
+                "{id}",
+                "convert"
+              ]
+            },
+            "description": "Creates the student and sets the lead to ENROLLED in one transaction. Converting an already-converted lead returns 409.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupId\": \"\",\n  \"note\": \"To‘lovni bo‘lib to‘laydi\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Messages",
+      "item": [
+        {
+          "name": "Contact-form inbox",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/messages?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&isRead=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "messages"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "isRead",
+                  "value": "false",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Read one message",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/messages/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "messages",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete a message",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/messages/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "messages",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mark a message read or unread",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/messages/{id}/read",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "messages",
+                "{id}",
+                "read"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isRead\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Posts",
+      "item": [
+        {
+          "name": "List every post, drafts included",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/posts?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&tag=karyera&isPublished=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "posts"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "tag",
+                  "value": "karyera",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "isPublished",
+                  "value": "true",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create a post; the caller becomes its author",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/posts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "posts"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"excerpt\": {\n    \"uz\": \"Noldan to‘liq web dasturchi bo‘ling\",\n    \"ru\": \"Станьте веб-разработчиком с нуля\",\n    \"en\": \"Become a web developer from scratch\"\n  },\n  \"content\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"slug\": \"frontend-yol-xaritasi\",\n  \"coverImageUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/cover.webp\",\n  \"tags\": [\n    \"frontend\",\n    \"karyera\"\n  ],\n  \"readMinutes\": 5,\n  \"metaTitle\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"metaDescription\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get one post",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/posts/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "posts",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update a post",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/posts/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "posts",
+                "{id}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"excerpt\": {\n    \"uz\": \"Noldan to‘liq web dasturchi bo‘ling\",\n    \"ru\": \"Станьте веб-разработчиком с нуля\",\n    \"en\": \"Become a web developer from scratch\"\n  },\n  \"content\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"slug\": \"frontend-yol-xaritasi\",\n  \"coverImageUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/cover.webp\",\n  \"tags\": [\n    \"frontend\",\n    \"karyera\"\n  ],\n  \"readMinutes\": 5,\n  \"metaTitle\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"metaDescription\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete a post",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/posts/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "posts",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Publish or unpublish a post",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/posts/{id}/publish",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "posts",
+                "{id}",
+                "publish"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Settings",
+      "item": [
+        {
+          "name": "Every settings record",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/settings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "settings"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Replace the value stored under a settings key",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/settings/{key}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "settings",
+                "{key}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": {\n    \"phones\": [\n      \"+998 71 200 30 40\"\n    ],\n    \"email\": \"info@marsspace.uz\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Statistics",
+      "item": [
+        {
+          "name": "Dashboard aggregates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/statistics/overview",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "statistics",
+                "overview"
+              ]
+            },
+            "description": "Totals, leads by status, a 30-day lead trend with empty days filled in, the top courses by lead volume, and the five most recent leads."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Students",
+      "item": [
+        {
+          "name": "List students; filter by groupId, courseId or status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/students?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&groupId=&courseId=&status=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "students"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "groupId",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "courseId",
+                  "value": "",
+                  "description": "All students across every group of this course",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "description": "one of: ACTIVE, GRADUATED, FROZEN, DROPPED",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Enrol a student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "students"
+              ]
+            },
+            "description": "Returns 409 GROUP_CAPACITY_EXCEEDED when the target group is full.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Abror Qodirov\",\n  \"phone\": \"+998901234567\",\n  \"email\": \"abror@gmail.com\",\n  \"birthDate\": \"2004-05-12\",\n  \"groupId\": \"\",\n  \"status\": \"ACTIVE\",\n  \"note\": \"To‘lovni bo‘lib to‘laydi\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get one student",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/students/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "students",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update a student",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/students/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "students",
+                "{id}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Abror Qodirov\",\n  \"phone\": \"+998901234567\",\n  \"email\": \"abror@gmail.com\",\n  \"birthDate\": \"2004-05-12\",\n  \"groupId\": \"\",\n  \"status\": \"ACTIVE\",\n  \"note\": \"To‘lovni bo‘lib to‘laydi\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete a student",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/students/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "students",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Move a student to another group",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/students/{id}/move",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "students",
+                "{id}",
+                "move"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupId\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Teachers",
+      "item": [
+        {
+          "name": "List every teacher",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/teachers?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&isActive=true&courseId=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "teachers"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "isActive",
+                  "value": "true",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "courseId",
+                  "value": "",
+                  "description": "Only teachers assigned to this course",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create a teacher",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/teachers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "teachers"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Jasur Yuldashev\",\n  \"position\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"bio\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"slug\": \"jasur-yuldashev\",\n  \"photoUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/teacher.webp\",\n  \"experienceYears\": 7,\n  \"skills\": [\n    \"React\",\n    \"TypeScript\"\n  ],\n  \"socials\": {\n    \"telegram\": \"https://t.me/jasur_dev\",\n    \"github\": \"https://github.com/jasur\"\n  },\n  \"sortOrder\": 0,\n  \"isActive\": true,\n  \"courseIds\": [\n    \"\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Apply a new ordering to the teacher list",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/teachers/reorder",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "teachers",
+                "reorder"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"id\": \"clx1a2b3c4d5e6f7g8h9i0j1\",\n      \"sortOrder\": 0\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get one teacher",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/teachers/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "teachers",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update a teacher",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/teachers/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "teachers",
+                "{id}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Jasur Yuldashev\",\n  \"position\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"bio\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"slug\": \"jasur-yuldashev\",\n  \"photoUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/teacher.webp\",\n  \"experienceYears\": 7,\n  \"skills\": [\n    \"React\",\n    \"TypeScript\"\n  ],\n  \"socials\": {\n    \"telegram\": \"https://t.me/jasur_dev\",\n    \"github\": \"https://github.com/jasur\"\n  },\n  \"sortOrder\": 0,\n  \"isActive\": true,\n  \"courseIds\": [\n    \"\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete a teacher who leads no groups",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/teachers/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "teachers",
+                "{id}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Testimonials",
+      "item": [
+        {
+          "name": "List every review",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/testimonials?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&courseId=&isPublished=true&minRating=4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "testimonials"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "courseId",
+                  "value": "",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "isPublished",
+                  "value": "true",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "minRating",
+                  "value": "4",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create a review",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/testimonials",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "testimonials"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"authorName\": \"Zarina Mahmudova\",\n  \"content\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"authorRole\": {\n    \"uz\": \"Frontend developer, Uzum\"\n  },\n  \"avatarUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/avatar.webp\",\n  \"courseId\": \"\",\n  \"rating\": 5,\n  \"videoUrl\": \"https://youtube.com/watch?v=xyz\",\n  \"isPublished\": true,\n  \"sortOrder\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get one review",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/testimonials/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "testimonials",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update a review",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/testimonials/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "testimonials",
+                "{id}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"authorName\": \"Zarina Mahmudova\",\n  \"content\": {\n    \"uz\": \"Full Stack dasturlash\",\n    \"ru\": \"Full Stack разработка\",\n    \"en\": \"Full Stack development\"\n  },\n  \"authorRole\": {\n    \"uz\": \"Frontend developer, Uzum\"\n  },\n  \"avatarUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/avatar.webp\",\n  \"courseId\": \"\",\n  \"rating\": 5,\n  \"videoUrl\": \"https://youtube.com/watch?v=xyz\",\n  \"isPublished\": true,\n  \"sortOrder\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete a review",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/testimonials/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "testimonials",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Publish or unpublish a review",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/testimonials/{id}/publish",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "testimonials",
+                "{id}",
+                "publish"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Uploads",
+      "item": [
+        {
+          "name": "Upload an image",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/uploads/image",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "uploads",
+                "image"
+              ]
+            },
+            "description": "Accepts jpeg, png, webp and svg up to 5 MB. The type is verified from the file bytes, the name is regenerated, and SVG content is stripped of scripts."
+          }
+        },
+        {
+          "name": "Delete an uploaded file",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/uploads/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "uploads",
+                "{id}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin: Users",
+      "item": [
+        {
+          "name": "List staff accounts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/users?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&role=&isActive=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "role",
+                  "value": "",
+                  "description": "one of: SUPER_ADMIN, ADMIN, MANAGER",
+                  "disabled": true
+                },
+                {
+                  "key": "isActive",
+                  "value": "true",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create a staff account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Alisher Rahimov\",\n  \"email\": \"alisher@marsspace.uz\",\n  \"password\": \"Str0ngPass!\",\n  \"phone\": \"+998901234567\",\n  \"role\": \"SUPER_ADMIN\",\n  \"avatarUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/avatar.webp\",\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get one staff account",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/users/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "users",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update a staff account",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/users/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "users",
+                "{id}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Alisher Rahimov\",\n  \"email\": \"alisher@marsspace.uz\",\n  \"phone\": \"+998901234567\",\n  \"role\": \"SUPER_ADMIN\",\n  \"avatarUrl\": \"https://cdn.marsspace.uz/uploads/2026/08/avatar.webp\",\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete a staff account",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/users/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "users",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Activate or deactivate an account",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/admin/users/{id}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "admin",
+                "users",
+                "{id}",
+                "status"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Exchange email and password for a token pair",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "auth",
+                "login"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@marsspace.uz\",\n  \"password\": \"ChangeMe123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "if (body.success && body.data && body.data.accessToken) {",
+                  "  pm.collectionVariables.set('accessToken', body.data.accessToken);",
+                  "  pm.collectionVariables.set('refreshToken', body.data.refreshToken);",
+                  "  pm.test('tokens captured', () => pm.expect(body.data.accessToken).to.be.a('string'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rotate the refresh token and issue a new access token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "auth",
+                "refresh"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "",
+                  "if (body.success && body.data && body.data.accessToken) {",
+                  "  pm.collectionVariables.set('accessToken', body.data.accessToken);",
+                  "  pm.collectionVariables.set('refreshToken', body.data.refreshToken);",
+                  "  pm.test('tokens captured', () => pm.expect(body.data.accessToken).to.be.a('string'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Revoke the current refresh session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "auth",
+                "logout"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Current user profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "auth",
+                "me"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Change the password and revoke all other sessions",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/auth/change-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "auth",
+                "change-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"ChangeMe123!\",\n  \"newPassword\": \"N3wStrongPass!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public",
+      "item": [
+        {
+          "name": "Liveness probe with database and memory checks",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Active categories ordered by sortOrder, with coursesCount",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/categories?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&lang=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "categories"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "Flatten localised fields to this language (falls back to uz) — one of: uz, ru, en",
+                  "disabled": true
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "One active category by slug",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/categories/{slug}?lang=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "categories",
+                "{slug}"
+              ],
+              "query": [
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "one of: uz, ru, en",
+                  "disabled": true
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Published courses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/courses?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&lang=&categorySlug=frontend&level=&format=&isFeatured=true&minPrice=500000&maxPrice=3000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "Flatten localised fields to this language (falls back to uz) — one of: uz, ru, en",
+                  "disabled": true
+                },
+                {
+                  "key": "categorySlug",
+                  "value": "frontend",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "level",
+                  "value": "",
+                  "description": "one of: BEGINNER, INTERMEDIATE, ADVANCED",
+                  "disabled": true
+                },
+                {
+                  "key": "format",
+                  "value": "",
+                  "description": "one of: OFFLINE, ONLINE, HYBRID",
+                  "disabled": true
+                },
+                {
+                  "key": "isFeatured",
+                  "value": "true",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "minPrice",
+                  "value": "500000",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "3000000",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Filters: categorySlug, level, format, isFeatured, minPrice, maxPrice, search.",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Up to six featured courses for the home page",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/courses/featured?lang=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "courses",
+                "featured"
+              ],
+              "query": [
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "one of: uz, ru, en",
+                  "disabled": true
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Course detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/courses/{slug}?lang=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "courses",
+                "{slug}"
+              ],
+              "query": [
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "one of: uz, ru, en",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Includes category, teachers, open groups with freeSeats, and published reviews.",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Active teachers ordered by sortOrder",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/teachers?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&lang=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "teachers"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "Flatten localised fields to this language (falls back to uz) — one of: uz, ru, en",
+                  "disabled": true
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Teacher detail with their published courses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/teachers/{slug}?lang=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "teachers",
+                "{slug}"
+              ],
+              "query": [
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "one of: uz, ru, en",
+                  "disabled": true
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Intakes still forming that start today or later, including freeSeats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/groups/upcoming?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&lang=&courseId=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "groups",
+                "upcoming"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "Flatten localised fields to this language (falls back to uz) — one of: uz, ru, en",
+                  "disabled": true
+                },
+                {
+                  "key": "courseId",
+                  "value": "",
+                  "description": "Restrict to one course",
+                  "disabled": true
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Capture a lead from the marketing site",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/leads",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "leads"
+              ]
+            },
+            "description": "Rate limited to 3 requests per minute per IP. The hidden \"website\" field is a honeypot and must stay empty. A new lead triggers a Telegram alert to the sales chat.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Ulug‘bek Ismatullayev\",\n  \"phone\": \"+998901234567\",\n  \"courseId\": \"\",\n  \"message\": \"Kurs narxi qiziqtiryapti\",\n  \"source\": \"WEBSITE_FORM\",\n  \"utmSource\": \"instagram\",\n  \"utmMedium\": \"cpc\",\n  \"utmCampaign\": \"autumn-2026\",\n  \"pageUrl\": \"https://marsspace.uz/courses/frontend-react\",\n  \"website\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Published posts; filter by tag or search",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/posts?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&lang=&tag=karyera",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "posts"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "Flatten localised fields to this language (falls back to uz) — one of: uz, ru, en",
+                  "disabled": true
+                },
+                {
+                  "key": "tag",
+                  "value": "karyera",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Post detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/posts/{slug}?lang=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "posts",
+                "{slug}"
+              ],
+              "query": [
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "one of: uz, ru, en",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Increments viewCount at most once per IP per hour, without blocking the response.",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Published reviews; optionally scoped to one course",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/testimonials?page=1&limit=12&search=javascript&sortBy=&sortOrder=desc&lang=&courseSlug=frontend-react",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "testimonials"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "12",
+                  "description": "",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "javascript",
+                  "description": "Free-text search term",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "",
+                  "description": "Column to sort by; unknown values fall back to createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "description": "one of: asc, desc",
+                  "disabled": true
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "description": "Flatten localised fields to this language (falls back to uz) — one of: uz, ru, en",
+                  "disabled": true
+                },
+                {
+                  "key": "courseSlug",
+                  "value": "frontend-react",
+                  "description": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Contact form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/contact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "contact"
+              ]
+            },
+            "description": "Rate limited to 3 requests per minute per IP; the \"website\" field is a honeypot.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Hasan Aliyev\",\n  \"phone\": \"+998901234567\",\n  \"email\": \"hasan@gmail.com\",\n  \"subject\": \"Hamkorlik taklifi\",\n  \"message\": \"Korporativ kurs tashkil qilish mumkinmi?\",\n  \"website\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Public settings bundle",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apiPrefix}}/settings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apiPrefix}}",
+                "settings"
+              ]
+            },
+            "description": "Returns contacts, socials, hero stats and SEO defaults as one object.",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

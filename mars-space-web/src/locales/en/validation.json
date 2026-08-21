@@ -1,0 +1,19 @@
+{
+  "required": "This field is required",
+  "phone": { "invalid": "Enter a valid number: +998 XX XXX XX XX" },
+  "name": { "min": "Enter at least 3 characters", "max": "No more than 120 characters" },
+  "email": { "invalid": "Enter a valid email" },
+  "message": { "min": "Enter at least 10 characters" },
+  "errors": {
+    "VALIDATION_ERROR": "Check the data and submit again",
+    "INVALID_CREDENTIALS": "Invalid email or password",
+    "UNAUTHORIZED": "Please sign in first",
+    "FORBIDDEN": "You don't have permission for this action",
+    "NOT_FOUND": "Not found",
+    "CONFLICT": "This record already exists",
+    "TOKEN_EXPIRED": "Your session has expired",
+    "NETWORK_ERROR": "Network error. Check your connection",
+    "TIMEOUT": "The request timed out",
+    "UNKNOWN": "An unknown error occurred"
+  }
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0A0D12" />
+  <g stroke="#2A3240" stroke-width="1" opacity="0.5">
+    <line x1="0" y1="157" x2="1200" y2="157" />
+    <line x1="0" y1="472" x2="1200" y2="472" />
+    <line x1="300" y1="0" x2="300" y2="630" />
+    <line x1="900" y1="0" x2="900" y2="630" />
+  </g>
+  <line x1="80" y1="230" x2="1120" y2="230" stroke="#C1440E" stroke-width="2" opacity="0.6" />
+  <rect x="80" y="120" width="44" height="44" rx="4" fill="#C1440E" />
+  <text x="140" y="152" font-family="monospace" font-size="20" letter-spacing="4" fill="#8A94A6">MARS SPACE // IT LEARNING CENTRE</text>
+  <text x="80" y="330" font-family="Arial, sans-serif" font-size="72" font-weight="700" fill="#E6EDF5">Kelajak kasbini</text>
+  <text x="80" y="410" font-family="Arial, sans-serif" font-size="72" font-weight="700" fill="#E6EDF5">shu yerda o'rganing</text>
+  <text x="80" y="500" font-family="monospace" font-size="24" fill="#E8A33D">Frontend · Backend · UI/UX · Toshkent</text>
+</svg>

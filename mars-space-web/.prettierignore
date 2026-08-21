@@ -1,0 +1,7 @@
+dist
+coverage
+generated
+pnpm-lock.yaml
+node_modules
+playwright-report
+src/locales/**/*.json

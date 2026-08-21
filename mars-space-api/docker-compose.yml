@@ -1,0 +1,82 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mars-space-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mars
+      POSTGRES_PASSWORD: mars
+      POSTGRES_DB: mars_space
+    ports:
+      # Host 5433 keeps the container clear of a locally installed PostgreSQL on 5432.
+      - '5433:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U mars -d mars_space']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mars-space-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      API_PREFIX: api/v1
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:3000}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      # Inside the compose network Postgres is reachable on its own port.
+      DATABASE_URL: postgresql://mars:mars@postgres:5432/mars_space?schema=public
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-docker_access_secret_change_me_32}
+      JWT_ACCESS_EXPIRES_IN: ${JWT_ACCESS_EXPIRES_IN:-15m}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-docker_refresh_secret_change_me_32}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN:-7d}
+      STORAGE_DRIVER: ${STORAGE_DRIVER:-local}
+      STORAGE_LOCAL_PATH: ./uploads
+      STORAGE_PUBLIC_URL: ${STORAGE_PUBLIC_URL:-http://localhost:4000/uploads}
+      STORAGE_MAX_FILE_SIZE: ${STORAGE_MAX_FILE_SIZE:-5242880}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+      THROTTLE_TTL: ${THROTTLE_TTL:-60}
+      THROTTLE_LIMIT: ${THROTTLE_LIMIT:-100}
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL:-admin@marsspace.uz}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-ChangeMe123!}
+      SEED_MANAGER_EMAIL: ${SEED_MANAGER_EMAIL:-manager@marsspace.uz}
+      SEED_MANAGER_PASSWORD: ${SEED_MANAGER_PASSWORD:-ChangeMe123!}
+    ports:
+      - '4000:4000'
+    volumes:
+      - uploads-data:/app/uploads
+    # Migrate + seed before serving, so `docker compose up` yields a ready API.
+    command: sh -c "node node_modules/prisma/build/index.js migrate deploy && node dist-seed/prisma/seed.js && node dist/main.js"
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: mars-space-pgadmin
+    restart: unless-stopped
+    profiles: ['tools']
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@marsspace.uz
+      PGADMIN_DEFAULT_PASSWORD: mars
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - '5050:80'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  postgres-data:
+  pgadmin-data:
+  uploads-data:

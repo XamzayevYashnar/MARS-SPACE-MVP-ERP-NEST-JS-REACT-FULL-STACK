@@ -1,0 +1,29 @@
+{
+  "eyebrow": "MARS SPACE // CATALOG",
+  "title": "Courses",
+  "filters": {
+    "search": "Search",
+    "searchPlaceholder": "Course name...",
+    "level": "Level",
+    "format": "Format",
+    "category": "Direction",
+    "all": "All",
+    "clear": "Clear",
+    "results": "{{count}} courses found"
+  },
+  "detail": {
+    "outcomes": "What you'll learn",
+    "requirements": "Requirements",
+    "syllabus": "Syllabus",
+    "teachers": "Teachers",
+    "related": "Related courses",
+    "enroll": "Apply now",
+    "duration": "Duration",
+    "lessonsPerWeek": "Per week",
+    "lessonLength": "Lesson length",
+    "format": "Format",
+    "nextIntake": "Next intake",
+    "minutes": "{{count}} minutes",
+    "weeks": "{{count}} weeks"
+  }
+}

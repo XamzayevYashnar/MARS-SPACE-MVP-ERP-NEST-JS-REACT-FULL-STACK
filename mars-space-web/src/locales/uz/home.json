@@ -1,0 +1,43 @@
+{
+  "hero": {
+    "eyebrow": "MARS SPACE // IT O'QUV MARKAZI",
+    "title": "Kelajak kasbini shu yerda o'rganing",
+    "subtitle": "Amaliyotchi mentorlar, kichik guruhlar va real loyihalar bilan IT sohasiga kiring."
+  },
+  "missionBoard": {
+    "title": "Yaqin guruhlar",
+    "col": { "group": "Guruh", "course": "Kurs", "start": "Boshlanish", "schedule": "Jadval", "seats": "Joylar" },
+    "empty": "Hozircha ochiq guruh yo'q"
+  },
+  "directions": { "title": "Yo'nalishlar", "courses": "{{count}} kurs" },
+  "featured": { "title": "Tanlangan kurslar", "cta": "Barcha kurslar" },
+  "why": {
+    "title": "Nega Mars Space",
+    "smallGroups": { "title": "Kichik guruhlar", "desc": "Har bir o'quvchiga e'tibor beriladi." },
+    "mentors": { "title": "Amaliyotchi mentorlar", "desc": "Sohada ishlayotgan mutaxassislar dars beradi." },
+    "portfolio": { "title": "Loyihaviy portfolio", "desc": "Real loyihalar bilan portfolio yig'asiz." },
+    "career": { "title": "Ishga joylashuv", "desc": "Bitiruvchilarga ish topishda ko'maklashamiz." }
+  },
+  "teachers": { "title": "O'qituvchilar" },
+  "process": {
+    "title": "Qanday boshlanadi",
+    "application": { "title": "Ariza", "desc": "Saytda ariza qoldiring." },
+    "interview": { "title": "Suhbat", "desc": "Maqsadlaringizni aniqlaymiz." },
+    "trial": { "title": "Sinov darsi", "desc": "Bepul sinov darsida qatnashing." },
+    "enrolment": { "title": "Qabul", "desc": "Guruhga qo'shiling va o'qishni boshlang." }
+  },
+  "testimonials": { "title": "Fikrlar" },
+  "news": { "title": "Yangiliklar" },
+  "faq": {
+    "title": "Ko'p so'raladigan savollar",
+    "items": [
+      { "q": "O'qish qancha davom etadi?", "a": "Kursga qarab 4–8 oy davom etadi." },
+      { "q": "Boshlang'ich bilim kerakmi?", "a": "Ko'p kurslar noldan boshlanadi." },
+      { "q": "Onlayn o'qish bormi?", "a": "Ha, ba'zi kurslar onlayn va aralash formatda." },
+      { "q": "To'lov qanday amalga oshiriladi?", "a": "Oylik yoki to'liq to'lov mumkin." },
+      { "q": "Sertifikat beriladimi?", "a": "Kursni tugatganlarga sertifikat beriladi." },
+      { "q": "Ishga joylashishga yordam berasizmi?", "a": "Ha, karyera bo'yicha ko'maklashamiz." }
+    ]
+  },
+  "cta": { "title": "Bugun boshlang", "subtitle": "Ariza qoldiring, biz siz bilan bog'lanamiz." }
+}

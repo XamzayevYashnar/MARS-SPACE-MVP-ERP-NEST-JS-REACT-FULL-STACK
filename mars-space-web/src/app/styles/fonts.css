@@ -1,0 +1,16 @@
+/*
+ * Fonts are loaded via <link> in index.html (preconnect + preload + swap, Latin
+ * + Cyrillic subsets) for the fastest first paint. This file documents the
+ * font stack and provides a system-font fallback so the app is styled even if
+ * Google Fonts is blocked.
+ *
+ *   Display : Unbounded      (600/700)
+ *   Body    : Onest          (400/500/600)
+ *   Data    : JetBrains Mono (400/500)
+ */
+
+:root {
+  --font-display: 'Unbounded', system-ui, sans-serif;
+  --font-body: 'Onest', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+}

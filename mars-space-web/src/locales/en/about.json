@@ -1,0 +1,13 @@
+{
+  "eyebrow": "MARS SPACE // ABOUT",
+  "title": "We make IT education practical",
+  "lead": "Mars Space is a learning centre preparing young people for modern IT careers.",
+  "story": "Our goal is to turn every student into a job-ready specialist through real projects, practising mentors and a strong community. Small groups and an individual approach turn knowledge into practice.",
+  "valuesTitle": "Our values",
+  "values": [
+    { "title": "Practice", "desc": "More real projects than theory." },
+    { "title": "Honesty", "desc": "Open assessment and real results." },
+    { "title": "Community", "desc": "A network of graduates and mentors." }
+  ],
+  "statsTitle": "In numbers"
+}

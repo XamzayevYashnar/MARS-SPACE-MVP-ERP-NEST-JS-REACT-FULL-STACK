@@ -1,0 +1,76 @@
+{
+  "brand": { "name": "Mars Space", "tagline": "IT учебный центр" },
+  "nav": {
+    "home": "Главная",
+    "courses": "Курсы",
+    "teachers": "Преподаватели",
+    "about": "О нас",
+    "news": "Новости",
+    "contact": "Контакты"
+  },
+  "actions": {
+    "apply": "Оставить заявку",
+    "viewCourses": "Курсы",
+    "viewAll": "Смотреть все",
+    "details": "Подробнее",
+    "send": "Отправить",
+    "retry": "Повторить",
+    "clearFilters": "Сбросить фильтры",
+    "back": "Назад",
+    "readMore": "Читать далее",
+    "call": "Позвонить",
+    "close": "Закрыть",
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "loadMore": "Загрузить ещё"
+  },
+  "language": { "label": "Язык", "uz": "Узбекский", "ru": "Русский", "en": "Английский" },
+  "theme": { "toggle": "Сменить тему", "dark": "Тёмная", "light": "Светлая" },
+  "states": {
+    "loading": "Загрузка",
+    "errorTitle": "Произошла ошибка",
+    "errorDescription": "Не удалось загрузить данные. Проверьте интернет и повторите попытку.",
+    "emptyTitle": "Нет данных",
+    "notFoundTitle": "Сигнал потерян",
+    "notFoundDescription": "Эта страница не найдена.",
+    "offline": "Соединение с интернетом потеряно"
+  },
+  "course": {
+    "level": { "BEGINNER": "Начальный", "INTERMEDIATE": "Средний", "ADVANCED": "Продвинутый" },
+    "format": { "OFFLINE": "Офлайн", "ONLINE": "Онлайн", "HYBRID": "Смешанный" },
+    "duration": "{{count}} мес.",
+    "lessonsPerWeek": "{{count}} занятия в неделю",
+    "totalLessons": "{{count}} занятий",
+    "seatsLeft": "Осталось {{count}} мест",
+    "full": "Мест нет",
+    "from": "от",
+    "nextIntake": "Ближайший набор"
+  },
+  "footer": {
+    "rights": "Все права защищены",
+    "navTitle": "Страницы",
+    "contactTitle": "Контакты",
+    "socialTitle": "Соцсети"
+  },
+  "seo": {
+    "defaultDescription": "Mars Space — IT учебный центр в Ташкенте. Курсы Frontend, Backend и дизайна."
+  },
+  "misc": { "skipToContent": "Перейти к содержимому" },
+  "lead": {
+    "title": "Оставить заявку",
+    "subtitle": "Оставьте свои данные, и мы свяжемся с вами.",
+    "name": "Имя",
+    "namePlaceholder": "Ваше имя",
+    "phone": "Телефон",
+    "course": "Курс",
+    "coursePlaceholder": "Выберите курс",
+    "courseNone": "Не определился",
+    "message": "Комментарий",
+    "messagePlaceholder": "Дополнительная информация (необязательно)",
+    "submit": "Отправить",
+    "successTitle": "Заявка принята",
+    "successDescription": "Наши операторы скоро свяжутся с вами.",
+    "again": "Оставить ещё заявку",
+    "toastSuccess": "Заявка принята"
+  }
+}

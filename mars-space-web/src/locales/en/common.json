@@ -1,0 +1,76 @@
+{
+  "brand": { "name": "Mars Space", "tagline": "IT learning centre" },
+  "nav": {
+    "home": "Home",
+    "courses": "Courses",
+    "teachers": "Teachers",
+    "about": "About",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "actions": {
+    "apply": "Apply now",
+    "viewCourses": "Courses",
+    "viewAll": "View all",
+    "details": "Details",
+    "send": "Send",
+    "retry": "Retry",
+    "clearFilters": "Clear filters",
+    "back": "Back",
+    "readMore": "Read more",
+    "call": "Call",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loadMore": "Load more"
+  },
+  "language": { "label": "Language", "uz": "Uzbek", "ru": "Russian", "en": "English" },
+  "theme": { "toggle": "Toggle theme", "dark": "Dark", "light": "Light" },
+  "states": {
+    "loading": "Loading",
+    "errorTitle": "Something went wrong",
+    "errorDescription": "Couldn't load the data. Check your connection and try again.",
+    "emptyTitle": "Nothing here yet",
+    "notFoundTitle": "Signal lost",
+    "notFoundDescription": "This page could not be found.",
+    "offline": "Internet connection lost"
+  },
+  "course": {
+    "level": { "BEGINNER": "Beginner", "INTERMEDIATE": "Intermediate", "ADVANCED": "Advanced" },
+    "format": { "OFFLINE": "Offline", "ONLINE": "Online", "HYBRID": "Hybrid" },
+    "duration": "{{count}} months",
+    "lessonsPerWeek": "{{count}} lessons/week",
+    "totalLessons": "{{count}} lessons",
+    "seatsLeft": "{{count}} seats left",
+    "full": "Full",
+    "from": "from",
+    "nextIntake": "Next intake"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "navTitle": "Pages",
+    "contactTitle": "Contact",
+    "socialTitle": "Social"
+  },
+  "seo": {
+    "defaultDescription": "Mars Space — an IT learning centre in Tashkent. Frontend, Backend and design courses."
+  },
+  "misc": { "skipToContent": "Skip to content" },
+  "lead": {
+    "title": "Apply now",
+    "subtitle": "Leave your details and we'll get in touch.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "phone": "Phone",
+    "course": "Course",
+    "coursePlaceholder": "Select a course",
+    "courseNone": "Not sure yet",
+    "message": "Note",
+    "messagePlaceholder": "Anything else (optional)",
+    "submit": "Send",
+    "successTitle": "Your request was received",
+    "successDescription": "Our team will contact you shortly.",
+    "again": "Submit another request",
+    "toastSuccess": "Your request was received"
+  }
+}

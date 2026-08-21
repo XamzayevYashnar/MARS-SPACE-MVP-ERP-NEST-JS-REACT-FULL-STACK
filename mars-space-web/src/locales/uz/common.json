@@ -1,0 +1,76 @@
+{
+  "brand": { "name": "Mars Space", "tagline": "IT o'quv markazi" },
+  "nav": {
+    "home": "Bosh sahifa",
+    "courses": "Kurslar",
+    "teachers": "O'qituvchilar",
+    "about": "Biz haqda",
+    "news": "Yangiliklar",
+    "contact": "Aloqa"
+  },
+  "actions": {
+    "apply": "Ariza qoldirish",
+    "viewCourses": "Kurslar",
+    "viewAll": "Barchasini ko'rish",
+    "details": "Batafsil",
+    "send": "Yuborish",
+    "retry": "Qayta urinish",
+    "clearFilters": "Filtrlarni tozalash",
+    "back": "Orqaga",
+    "readMore": "Ko'proq o'qish",
+    "call": "Qo'ng'iroq qilish",
+    "close": "Yopish",
+    "cancel": "Bekor qilish",
+    "save": "Saqlash",
+    "loadMore": "Yana yuklash"
+  },
+  "language": { "label": "Til", "uz": "O'zbekcha", "ru": "Ruscha", "en": "Inglizcha" },
+  "theme": { "toggle": "Mavzuni almashtirish", "dark": "Tungi", "light": "Kunduzgi" },
+  "states": {
+    "loading": "Yuklanmoqda",
+    "errorTitle": "Xatolik yuz berdi",
+    "errorDescription": "Ma'lumotni yuklab bo'lmadi. Internetni tekshirib, qayta urinib ko'ring.",
+    "emptyTitle": "Ma'lumot yo'q",
+    "notFoundTitle": "Signal yo'qoldi",
+    "notFoundDescription": "Bu sahifa topilmadi.",
+    "offline": "Internet aloqasi uzildi"
+  },
+  "course": {
+    "level": { "BEGINNER": "Boshlang'ich", "INTERMEDIATE": "O'rta", "ADVANCED": "Yuqori" },
+    "format": { "OFFLINE": "Oflayn", "ONLINE": "Onlayn", "HYBRID": "Aralash" },
+    "duration": "{{count}} oy",
+    "lessonsPerWeek": "Haftasiga {{count}} dars",
+    "totalLessons": "{{count}} dars",
+    "seatsLeft": "{{count}} joy qoldi",
+    "full": "To'ldi",
+    "from": "dan",
+    "nextIntake": "Keyingi qabul"
+  },
+  "footer": {
+    "rights": "Barcha huquqlar himoyalangan",
+    "navTitle": "Sahifalar",
+    "contactTitle": "Aloqa",
+    "socialTitle": "Ijtimoiy tarmoqlar"
+  },
+  "seo": {
+    "defaultDescription": "Mars Space — Toshkentdagi IT o'quv markazi. Frontend, Backend va dizayn kurslari."
+  },
+  "misc": { "skipToContent": "Asosiy qismga o'tish" },
+  "lead": {
+    "title": "Ariza qoldirish",
+    "subtitle": "Ma'lumotlaringizni qoldiring, biz siz bilan bog'lanamiz.",
+    "name": "Ism",
+    "namePlaceholder": "Ismingiz",
+    "phone": "Telefon",
+    "course": "Kurs",
+    "coursePlaceholder": "Kursni tanlang",
+    "courseNone": "Aniq emas",
+    "message": "Izoh",
+    "messagePlaceholder": "Qo'shimcha ma'lumot (ixtiyoriy)",
+    "submit": "Yuborish",
+    "successTitle": "Arizangiz qabul qilindi",
+    "successDescription": "Tez orada operatorlarimiz siz bilan bog'lanadi.",
+    "again": "Yana ariza qoldirish",
+    "toastSuccess": "Arizangiz qabul qilindi"
+  }
+}

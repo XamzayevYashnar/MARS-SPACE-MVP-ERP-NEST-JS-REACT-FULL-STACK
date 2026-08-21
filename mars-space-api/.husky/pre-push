@@ -1,0 +1,5 @@
+# Typecheck and unit tests before anything leaves the machine. The e2e suite
+# needs a database, so it stays in CI rather than in this hook.
+cd "$(dirname "$0")/.." || exit 1
+pnpm exec tsc --noEmit
+pnpm exec jest --silent --passWithNoTests

@@ -1,0 +1,13 @@
+{
+  "eyebrow": "MARS SPACE // BIZ HAQDA",
+  "title": "Biz IT ta'limni amaliy qilamiz",
+  "lead": "Mars Space — yoshlarni zamonaviy IT kasblariga tayyorlaydigan o'quv markazi.",
+  "story": "Bizning maqsadimiz — har bir o'quvchini real loyihalar, amaliyotchi mentorlar va kuchli hamjamiyat orqali ishga tayyor mutaxassisga aylantirish. Kichik guruhlar va individual yondashuv bilan bilimni amaliyotga aylantiramiz.",
+  "valuesTitle": "Qadriyatlarimiz",
+  "values": [
+    { "title": "Amaliyot", "desc": "Nazariyadan ko'ra ko'proq amaliy loyihalar." },
+    { "title": "Halollik", "desc": "Ochiq baho va real natijalar." },
+    { "title": "Hamjamiyat", "desc": "Bitiruvchilar va mentorlar tarmog'i." }
+  ],
+  "statsTitle": "Raqamlarda"
+}

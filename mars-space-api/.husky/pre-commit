@@ -1,0 +1,4 @@
+# Hooks run from the repository root, but the package lives in this
+# subdirectory — so the working directory has to be set explicitly.
+cd "$(dirname "$0")/.." || exit 1
+pnpm exec lint-staged

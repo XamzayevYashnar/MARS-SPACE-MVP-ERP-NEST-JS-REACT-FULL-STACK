@@ -1,0 +1,343 @@
+// Mars Space LMS — Prisma schema
+// See docs/document.md §5.2. Any deviation is logged in DECISIONS.md.
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  MANAGER
+}
+
+enum CourseLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum CourseFormat {
+  OFFLINE
+  ONLINE
+  HYBRID
+}
+
+enum GroupStatus {
+  FORMING
+  ACTIVE
+  PAUSED
+  FINISHED
+  CANCELLED
+}
+
+enum StudentStatus {
+  ACTIVE
+  GRADUATED
+  FROZEN
+  DROPPED
+}
+
+enum LeadStatus {
+  NEW
+  IN_PROGRESS
+  CONTACTED
+  ENROLLED
+  REJECTED
+}
+
+enum LeadSource {
+  WEBSITE_FORM
+  COURSE_PAGE
+  HERO_FORM
+  TELEGRAM
+  INSTAGRAM
+  PHONE
+  WALK_IN
+  OTHER
+}
+
+enum WeekDay {
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+  SUN
+}
+
+model User {
+  id            String         @id @default(cuid())
+  fullName      String
+  email         String         @unique
+  phone         String?
+  passwordHash  String
+  role          UserRole       @default(ADMIN)
+  avatarUrl     String?
+  isActive      Boolean        @default(true)
+  lastLoginAt   DateTime?
+  refreshTokens RefreshToken[]
+  assignedLeads Lead[]         @relation("LeadAssignee")
+  posts         Post[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([role, isActive])
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userAgent String?
+  ipAddress String?
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        Json
+  description Json?
+  iconKey     String?
+  colorHex    String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  courses     Course[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isActive, sortOrder])
+  @@map("categories")
+}
+
+model Course {
+  id               String          @id @default(cuid())
+  slug             String          @unique
+  title            Json
+  shortDescription Json
+  description      Json
+  outcomes         Json?
+  requirements     Json?
+  syllabus         Json?
+  categoryId       String
+  category         Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  level            CourseLevel     @default(BEGINNER)
+  format           CourseFormat    @default(OFFLINE)
+  durationMonths   Int
+  lessonsPerWeek   Int
+  lessonMinutes    Int             @default(90)
+  price            Decimal         @db.Decimal(12, 2)
+  discountPrice    Decimal?        @db.Decimal(12, 2)
+  currency         String          @default("UZS")
+  coverImageUrl    String?
+  promoVideoUrl    String?
+  metaTitle        Json?
+  metaDescription  Json?
+  isFeatured       Boolean         @default(false)
+  isPublished      Boolean         @default(false)
+  sortOrder        Int             @default(0)
+  teachers         CourseTeacher[]
+  groups           Group[]
+  leads            Lead[]
+  testimonials     Testimonial[]
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  @@index([categoryId, isPublished])
+  @@index([isPublished, isFeatured, sortOrder])
+  @@map("courses")
+}
+
+model Teacher {
+  id              String          @id @default(cuid())
+  slug            String          @unique
+  fullName        String
+  position        Json
+  bio             Json?
+  photoUrl        String?
+  experienceYears Int             @default(0)
+  skills          String[]        @default([])
+  socials         Json?
+  sortOrder       Int             @default(0)
+  isActive        Boolean         @default(true)
+  courses         CourseTeacher[]
+  groups          Group[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@index([isActive, sortOrder])
+  @@map("teachers")
+}
+
+model CourseTeacher {
+  courseId  String
+  teacherId String
+  course    Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  teacher   Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+
+  @@id([courseId, teacherId])
+  @@map("course_teachers")
+}
+
+model Group {
+  id        String      @id @default(cuid())
+  name      String      @unique
+  courseId  String
+  course    Course      @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  teacherId String?
+  teacher   Teacher?    @relation(fields: [teacherId], references: [id], onDelete: SetNull)
+  startDate DateTime
+  endDate   DateTime?
+  weekDays  WeekDay[]   @default([])
+  startTime String
+  endTime   String
+  roomName  String?
+  capacity  Int         @default(15)
+  status    GroupStatus @default(FORMING)
+  students  Student[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@index([courseId, status])
+  @@index([status, startDate])
+  @@map("groups")
+}
+
+model Student {
+  id         String        @id @default(cuid())
+  fullName   String
+  phone      String
+  email      String?
+  birthDate  DateTime?
+  groupId    String?
+  group      Group?        @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  status     StudentStatus @default(ACTIVE)
+  note       String?
+  enrolledAt DateTime      @default(now())
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@index([groupId, status])
+  @@index([phone])
+  @@map("students")
+}
+
+model Lead {
+  id           String     @id @default(cuid())
+  fullName     String
+  phone        String
+  courseId     String?
+  course       Course?    @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  message      String?
+  source       LeadSource @default(WEBSITE_FORM)
+  status       LeadStatus @default(NEW)
+  assignedToId String?
+  assignedTo   User?      @relation("LeadAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  adminNote    String?
+  utmSource    String?
+  utmMedium    String?
+  utmCampaign  String?
+  pageUrl      String?
+  contactedAt  DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([status, createdAt])
+  @@index([courseId])
+  @@map("leads")
+}
+
+model Post {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           Json
+  excerpt         Json
+  content         Json
+  coverImageUrl   String?
+  tags            String[]  @default([])
+  authorId        String?
+  author          User?     @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  readMinutes     Int       @default(3)
+  viewCount       Int       @default(0)
+  metaTitle       Json?
+  metaDescription Json?
+  isPublished     Boolean   @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([isPublished, publishedAt])
+  @@map("posts")
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  authorName  String
+  authorRole  Json?
+  avatarUrl   String?
+  courseId    String?
+  course      Course?  @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  rating      Int      @default(5)
+  content     Json
+  videoUrl    String?
+  isPublished Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isPublished, sortOrder])
+  @@map("testimonials")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  fullName  String
+  email     String?
+  phone     String
+  subject   String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([isRead, createdAt])
+  @@map("contact_messages")
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+model MediaFile {
+  id           String   @id @default(cuid())
+  key          String   @unique
+  url          String
+  originalName String
+  mimeType     String
+  sizeBytes    Int
+  width        Int?
+  height       Int?
+  uploadedById String?
+  createdAt    DateTime @default(now())
+
+  @@map("media_files")
+}

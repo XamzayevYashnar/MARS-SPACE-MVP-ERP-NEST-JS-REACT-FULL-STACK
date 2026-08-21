@@ -1,0 +1,29 @@
+{
+  "eyebrow": "MARS SPACE // CATALOG",
+  "title": "Курсы",
+  "filters": {
+    "search": "Поиск",
+    "searchPlaceholder": "Название курса...",
+    "level": "Уровень",
+    "format": "Формат",
+    "category": "Направление",
+    "all": "Все",
+    "clear": "Сбросить",
+    "results": "Найдено курсов: {{count}}"
+  },
+  "detail": {
+    "outcomes": "Чему вы научитесь",
+    "requirements": "Требования",
+    "syllabus": "Программа",
+    "teachers": "Преподаватели",
+    "related": "Похожие курсы",
+    "enroll": "Оставить заявку",
+    "duration": "Длительность",
+    "lessonsPerWeek": "В неделю",
+    "lessonLength": "Длительность урока",
+    "format": "Формат",
+    "nextIntake": "Ближайший набор",
+    "minutes": "{{count}} минут",
+    "weeks": "{{count}} недель"
+  }
+}

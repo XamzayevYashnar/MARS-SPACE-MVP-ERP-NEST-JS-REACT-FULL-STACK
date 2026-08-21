@@ -1,0 +1,145 @@
+@import './fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ * Design tokens — single source of truth. Values are `R G B` triples
+ * so Tailwind's rgb(var(--x) / <alpha-value>) can apply opacity.
+ * ------------------------------------------------------------------ */
+@layer base {
+  :root,
+  .dark {
+    --void: 10 13 18;
+    --basalt: 20 25 34;
+    --basalt-raised: 28 34 45;
+    --hairline: 42 50 64;
+    --oxide: 193 68 14;
+    --sol: 232 163 61;
+    --ice: 230 237 245;
+    --dust: 138 148 166;
+    --signal: 63 185 80;
+    --alert: 229 72 77;
+  }
+
+  .light {
+    --void: 245 246 248;
+    --basalt: 255 255 255;
+    --basalt-raised: 237 239 243;
+    --hairline: 221 226 233;
+    --oxide: 193 68 14;
+    --sol: 232 163 61;
+    --ice: 16 20 27;
+    --dust: 90 100 116;
+    --signal: 63 185 80;
+    --alert: 229 72 77;
+  }
+
+  * {
+    @apply border-hairline;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-void font-sans text-base leading-relaxed text-ice antialiased;
+    font-feature-settings: 'ss01';
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight text-ice;
+    text-wrap: balance;
+  }
+
+  /* Visible focus ring everywhere (spec §4.5) */
+  :focus-visible {
+    @apply outline-none ring-2 ring-sol ring-offset-2 ring-offset-void;
+  }
+
+  ::selection {
+    @apply bg-oxide/30 text-ice;
+  }
+
+  /* Thin, instrument-panel scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--hairline)) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgb(var(--hairline));
+    border-radius: 0;
+  }
+}
+
+@layer components {
+  /* Eyebrow label — mono, uppercase, tracked (spec §4.3) */
+  .eyebrow {
+    @apply font-mono text-eyebrow uppercase text-dust;
+  }
+
+  /* 1px hairline grid motif — the connective tissue of the design */
+  .hairline-grid {
+    background-image:
+      linear-gradient(to right, rgb(var(--hairline) / 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--hairline) / 0.5) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Corner ticks on key cards */
+  .corner-ticks {
+    position: relative;
+  }
+  .corner-ticks::before,
+  .corner-ticks::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: rgb(var(--oxide));
+    pointer-events: none;
+  }
+  .corner-ticks::before {
+    top: -1px;
+    left: -1px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+  }
+  .corner-ticks::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+  }
+}
+
+@layer utilities {
+  /* Skip-to-content link — visible only on focus */
+  .skip-link {
+    @apply sr-only rounded-sm bg-oxide px-4 py-2 text-ice;
+  }
+  .skip-link:focus {
+    @apply not-sr-only fixed left-4 top-4 z-[100];
+  }
+}
+
+/* Respect reduced motion globally (spec §4.6) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "eyebrow": "MARS SPACE // ALOQA",
+  "title": "Biz bilan bog'laning",
+  "lead": "Savollaringiz bo'lsa, yozing yoki qo'ng'iroq qiling.",
+  "form": {
+    "name": "Ism",
+    "namePlaceholder": "Ismingiz",
+    "phone": "Telefon",
+    "email": "Email",
+    "emailPlaceholder": "email@example.com",
+    "subject": "Mavzu",
+    "subjectPlaceholder": "Nima haqida?",
+    "message": "Xabar",
+    "messagePlaceholder": "Xabaringizni yozing",
+    "submit": "Yuborish",
+    "successTitle": "Xabaringiz yuborildi",
+    "successDescription": "Tez orada javob beramiz."
+  },
+  "info": { "phone": "Telefon", "email": "Email", "address": "Manzil", "hours": "Ish vaqti" }
+}
