@@ -106,6 +106,38 @@ describe('RefreshTokenUseCase', () => {
     expect(refreshTokenRepository.create).not.toHaveBeenCalled();
   });
 
+  // Replaying a rotated token means two parties hold it. Since the legitimate
+  // owner cannot be told apart from the thief, every session is torn down.
+  it('tears down every session of the user when a rotated token is replayed', async () => {
+    refreshTokenRepository.findByHash.mockResolvedValue(
+      storedToken({ revokedAt: new Date('2026-01-02') }),
+    );
+    refreshTokenRepository.revokeAllForUser.mockResolvedValue(3);
+
+    await expect(useCase.execute('replayed')).rejects.toThrow(InvalidRefreshTokenError);
+
+    expect(refreshTokenRepository.revokeAllForUser).toHaveBeenCalledWith('user-1');
+    expect(refreshTokenRepository.create).not.toHaveBeenCalled();
+  });
+
+  it('does not tear down other sessions merely because a token expired', async () => {
+    refreshTokenRepository.findByHash.mockResolvedValue(
+      storedToken({ expiresAt: new Date(Date.now() - 1000) }),
+    );
+
+    await expect(useCase.execute('stale')).rejects.toThrow(InvalidRefreshTokenError);
+
+    expect(refreshTokenRepository.revokeAllForUser).not.toHaveBeenCalled();
+  });
+
+  it('does not tear down sessions for a token that was never issued', async () => {
+    refreshTokenRepository.findByHash.mockResolvedValue(null);
+
+    await expect(useCase.execute('never-issued')).rejects.toThrow(InvalidRefreshTokenError);
+
+    expect(refreshTokenRepository.revokeAllForUser).not.toHaveBeenCalled();
+  });
+
   it('rejects an expired token', async () => {
     refreshTokenRepository.findByHash.mockResolvedValue(
       storedToken({ expiresAt: new Date(Date.now() - 1000) }),

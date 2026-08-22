@@ -4,16 +4,18 @@ services:
     container_name: mars-space-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: mars
-      POSTGRES_PASSWORD: mars
-      POSTGRES_DB: mars_space
+      POSTGRES_USER: ${POSTGRES_USER:-mars}
+      # Overridable so a real deployment does not run on the password printed
+      # in this file. The `mars` default keeps `compose up` one command locally.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mars}
+      POSTGRES_DB: ${POSTGRES_DB:-mars_space}
     ports:
       # Host 5433 keeps the container clear of a locally installed PostgreSQL on 5432.
       - '5433:5432'
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U mars -d mars_space']
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-mars} -d ${POSTGRES_DB:-mars_space}']
       interval: 5s
       timeout: 5s
       retries: 10
@@ -35,11 +37,19 @@ services:
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:3000}
       LOG_LEVEL: ${LOG_LEVEL:-info}
       # Inside the compose network Postgres is reachable on its own port.
-      DATABASE_URL: postgresql://mars:mars@postgres:5432/mars_space?schema=public
-      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-docker_access_secret_change_me_32}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-mars}:${POSTGRES_PASSWORD:-mars}@postgres:5432/${POSTGRES_DB:-mars_space}?schema=public
+      # No defaults on purpose. This file runs with NODE_ENV=production, and a
+      # fallback secret here would be a signing key published in the repository:
+      # the config schema rejects exactly these placeholders, so `compose up`
+      # would fail at boot with a confusing message instead of at the point the
+      # variable was forgotten. `?err` makes compose refuse up front.
+      # Generate each with: openssl rand -base64 48
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:?set JWT_ACCESS_SECRET in .env — openssl rand -base64 48}
       JWT_ACCESS_EXPIRES_IN: ${JWT_ACCESS_EXPIRES_IN:-15m}
-      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-docker_refresh_secret_change_me_32}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:?set JWT_REFRESH_SECRET in .env — must differ from the access secret}
       JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN:-7d}
+      # Off by default: the docs enumerate every admin route.
+      SWAGGER_ENABLED: ${SWAGGER_ENABLED:-false}
       STORAGE_DRIVER: ${STORAGE_DRIVER:-local}
       STORAGE_LOCAL_PATH: ./uploads
       STORAGE_PUBLIC_URL: ${STORAGE_PUBLIC_URL:-http://localhost:4000/uploads}
@@ -49,9 +59,13 @@ services:
       THROTTLE_TTL: ${THROTTLE_TTL:-60}
       THROTTLE_LIMIT: ${THROTTLE_LIMIT:-100}
       SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL:-admin@marsspace.uz}
-      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-ChangeMe123!}
+      # Same reasoning as the JWT secrets: `ChangeMe123!` as a default would
+      # mint a SUPER_ADMIN whose password is printed in this file.
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:?set SEED_ADMIN_PASSWORD in .env — 12+ characters}
       SEED_MANAGER_EMAIL: ${SEED_MANAGER_EMAIL:-manager@marsspace.uz}
-      SEED_MANAGER_PASSWORD: ${SEED_MANAGER_PASSWORD:-ChangeMe123!}
+      SEED_MANAGER_PASSWORD: ${SEED_MANAGER_PASSWORD:?set SEED_MANAGER_PASSWORD in .env — 12+ characters}
+      # Fabricated students, leads and testimonials. Never true against a live DB.
+      SEED_DEMO: ${SEED_DEMO:-false}
     ports:
       - '4000:4000'
     volumes:

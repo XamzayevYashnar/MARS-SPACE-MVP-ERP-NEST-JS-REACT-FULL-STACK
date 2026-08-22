@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { Logger as PinoLogger } from 'nestjs-pino';
@@ -24,9 +25,14 @@ async function bootstrap(): Promise<void> {
   const storageConfig = configService.getOrThrow<StorageConfig>('storage');
 
   // ── HTTP surface ───────────────────────────────────────────
-  app.setGlobalPrefix(appConfig.apiPrefix, { exclude: ['health'] });
+  // Both probe paths must be listed: `exclude` matches exact paths, so
+  // 'health' alone would leave the readiness route at /<prefix>/health/ready.
+  app.setGlobalPrefix(appConfig.apiPrefix, { exclude: ['health', 'health/ready'] });
 
   app.use(cookieParser());
+  // Course/post payloads carry three localised bodies each, so the list
+  // endpoints compress to a fraction of their size over the wire.
+  app.use(compression());
   app.useBodyParser('json', { limit: JSON_BODY_LIMIT });
   app.useBodyParser('urlencoded', { limit: JSON_BODY_LIMIT, extended: true });
 
@@ -70,7 +76,9 @@ async function bootstrap(): Promise<void> {
     });
   }
 
-  setupSwagger(app, appConfig);
+  if (appConfig.swaggerEnabled) {
+    setupSwagger(app, appConfig);
+  }
 
   app.enableShutdownHooks();
 
@@ -79,8 +87,13 @@ async function bootstrap(): Promise<void> {
   const logger = new Logger('Bootstrap');
   logger.log(`Mars Space API listening on port ${appConfig.port}`);
   logger.log(`REST base path  → /${appConfig.apiPrefix}`);
-  logger.log(`Swagger UI      → /api/docs`);
-  logger.log(`Health probe    → /health`);
+  logger.log(
+    appConfig.swaggerEnabled
+      ? 'Swagger UI      → /api/docs'
+      : 'Swagger UI      → disabled (set SWAGGER_ENABLED=true to serve it)',
+  );
+  logger.log('Liveness probe  → /health');
+  logger.log('Readiness probe → /health/ready');
 }
 
 function setupSwagger(app: INestApplication, appConfig: AppConfig): void {

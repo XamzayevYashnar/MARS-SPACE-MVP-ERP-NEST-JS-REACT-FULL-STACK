@@ -34,10 +34,11 @@ interface RetriableConfig extends InternalAxiosRequestConfig {
 }
 
 let isRefreshing = false;
-let queue: { resolve: (token: string) => void; reject: (err: unknown) => void }[] = [];
+/** Requests parked while one refresh is in flight; each rejects as an ApiError. */
+let queue: { resolve: (token: string) => void; reject: () => void }[] = [];
 
-function flushQueue(error: unknown, token: string | null) {
-  queue.forEach((p) => (token ? p.resolve(token) : p.reject(error)));
+function flushQueue(token: string | null) {
+  queue.forEach((p) => (token ? p.resolve(token) : p.reject()));
   queue = [];
 }
 
@@ -84,10 +85,17 @@ axiosInstance.interceptors.response.use(
         return new Promise((resolve, reject) => {
           queue.push({
             resolve: (token) => {
+              // Mark the replay as a retry too. Without this a queued request
+              // that still 401s would start a *second* refresh round instead of
+              // failing, so a genuinely dead session could loop.
+              original._retry = true;
               original.headers.Authorization = `Bearer ${token}`;
               resolve(axiosInstance(original));
             },
-            reject,
+            // Callers only ever handle ApiError; handing them the raw Axios
+            // error here made queued failures a different shape from the
+            // leader's, which `getApiErrorMessage` could not read.
+            reject: () => reject(toApiError(error)),
           });
         });
       }
@@ -101,11 +109,11 @@ axiosInstance.interceptors.response.use(
         // Response interceptor already unwrapped `data`.
         const { accessToken } = refreshRes.data as unknown as { accessToken: string };
         useAuthStore.getState().setAccessToken(accessToken);
-        flushQueue(null, accessToken);
+        flushQueue(accessToken);
         original.headers.Authorization = `Bearer ${accessToken}`;
         return axiosInstance(original);
-      } catch (refreshError) {
-        flushQueue(refreshError, null);
+      } catch {
+        flushQueue(null);
         useAuthStore.getState().clearSession();
         window.dispatchEvent(new CustomEvent(AUTH_UNAUTHORIZED_EVENT));
         return Promise.reject(toApiError(error));

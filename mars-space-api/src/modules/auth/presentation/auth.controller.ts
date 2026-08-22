@@ -2,7 +2,11 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Patch, Post, Req, Res } fr
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import { Request, Response } from 'express';
-import { LOGIN_THROTTLE, REFRESH_TOKEN_COOKIE } from '../../../common/constants/app.constants';
+import {
+  LOGIN_THROTTLE,
+  REFRESH_THROTTLE,
+  REFRESH_TOKEN_COOKIE,
+} from '../../../common/constants/app.constants';
 import { ApiOkEnvelope } from '../../../common/decorators/api-response.decorators';
 import { CurrentUser, Public } from '../../../common/decorators/auth.decorators';
 import { AppConfig } from '../../../core/config/app.config';
@@ -66,6 +70,7 @@ export class AuthController {
   @Public()
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
+  @Throttle({ default: REFRESH_THROTTLE })
   @ApiOperation({ summary: 'Rotate the refresh token and issue a new access token' })
   @ApiOkEnvelope(AuthTokensDto)
   async refresh(

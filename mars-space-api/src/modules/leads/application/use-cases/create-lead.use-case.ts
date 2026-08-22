@@ -57,19 +57,31 @@ export class CreateLeadUseCase {
       pageUrl: dto.pageUrl ?? null,
     });
 
-    // Notification is a side effect; the notifier never throws, so a Telegram
-    // outage cannot turn a captured lead into a failed request (§13).
-    await this.telegramNotifier.notifyNewLead({
-      id: lead.id,
-      fullName: lead.fullName,
-      phone: lead.phone,
-      courseTitle: course ? pickLanguage(course.title) : null,
-      message: lead.message,
-      source: lead.source,
-      pageUrl: lead.pageUrl,
-      utmSource: lead.utmSource,
-      createdAt: lead.createdAt,
-    });
+    // Notification is a side effect; the lead is already persisted, so it is
+    // dispatched without blocking the response. Awaiting it made a visitor on
+    // the landing page wait out Telegram's latency — up to the notifier's 5 s
+    // timeout — before the form reported success (§13).
+    void this.telegramNotifier
+      .notifyNewLead({
+        id: lead.id,
+        fullName: lead.fullName,
+        phone: lead.phone,
+        courseTitle: course ? pickLanguage(course.title) : null,
+        message: lead.message,
+        source: lead.source,
+        pageUrl: lead.pageUrl,
+        utmSource: lead.utmSource,
+        createdAt: lead.createdAt,
+      })
+      // The notifier swallows its own failures; this is belt-and-braces so a
+      // future change there can never surface as an unhandled rejection.
+      .catch((error: unknown) => {
+        this.logger.error(
+          `Telegram alert for lead ${lead.id} failed: ${
+            error instanceof Error ? error.message : 'unknown error'
+          }`,
+        );
+      });
 
     return { accepted: true, message: ACCEPTED_MESSAGE };
   }

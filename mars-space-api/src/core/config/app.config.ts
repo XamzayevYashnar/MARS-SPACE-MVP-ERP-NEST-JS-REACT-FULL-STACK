@@ -10,6 +10,8 @@ export interface AppConfig {
   logLevel: string;
   throttleTtlSeconds: number;
   throttleLimit: number;
+  /** Whether `/api/docs` is served. Off in production unless opted into. */
+  swaggerEnabled: boolean;
 }
 
 /**
@@ -32,4 +34,10 @@ export const appConfig = registerAs<AppConfig>('app', () => ({
   logLevel: process.env.LOG_LEVEL ?? 'info',
   throttleTtlSeconds: Number(process.env.THROTTLE_TTL ?? 60),
   throttleLimit: Number(process.env.THROTTLE_LIMIT ?? 100),
+  // The docs enumerate every admin route and payload, so a production
+  // deployment has to opt in explicitly rather than remember to opt out.
+  swaggerEnabled:
+    process.env.NODE_ENV === 'production'
+      ? process.env.SWAGGER_ENABLED === 'true'
+      : process.env.SWAGGER_ENABLED !== 'false',
 }));

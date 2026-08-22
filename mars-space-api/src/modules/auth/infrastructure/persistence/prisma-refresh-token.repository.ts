@@ -50,8 +50,11 @@ export class PrismaRefreshTokenRepository implements RefreshTokenRepository {
   }
 
   async deleteExpired(before: Date): Promise<number> {
+    // Expiry alone is the condition. Deleting revoked rows on sight would
+    // erase the evidence that reuse detection depends on: a replayed token
+    // would come back as "unknown" instead of "already rotated".
     const { count } = await this.prisma.refreshToken.deleteMany({
-      where: { OR: [{ expiresAt: { lt: before } }, { revokedAt: { not: null } }] },
+      where: { expiresAt: { lt: before } },
     });
     return count;
   }

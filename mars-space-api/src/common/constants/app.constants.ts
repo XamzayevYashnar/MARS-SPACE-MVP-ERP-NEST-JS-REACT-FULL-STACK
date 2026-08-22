@@ -34,4 +34,10 @@ export const UPLOAD_BODY_LIMIT = 10 * 1024 * 1024;
 
 /** Route-level throttle budgets (§7). */
 export const LOGIN_THROTTLE = { limit: 5, ttl: 60_000 };
+/**
+ * Refresh is unauthenticated — the presented token is the only credential —
+ * so it needs its own budget. Roomier than login because a browser with
+ * several tabs open can legitimately refresh a few times in a row.
+ */
+export const REFRESH_THROTTLE = { limit: 20, ttl: 60_000 };
 export const PUBLIC_FORM_THROTTLE = { limit: 3, ttl: 60_000 };

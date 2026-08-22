@@ -109,6 +109,31 @@ export class AllExceptionsFilter implements ExceptionFilter {
     };
   }
 
+  /**
+   * Turns a Terminus failure payload into one detail per broken indicator.
+   * Returns null for anything that is not a health-check body.
+   */
+  private terminusFailures(record: Record<string, unknown>): ErrorDetail[] | null {
+    if (record['status'] !== 'error') {
+      return null;
+    }
+
+    const failures = record['error'];
+    if (typeof failures !== 'object' || failures === null || Array.isArray(failures)) {
+      return null;
+    }
+
+    const entries = Object.entries(failures as Record<string, unknown>).map(([field, value]) => {
+      const message =
+        typeof value === 'object' && value !== null
+          ? (value as Record<string, unknown>)['message']
+          : undefined;
+      return { field, message: typeof message === 'string' ? message : 'is unavailable' };
+    });
+
+    return entries.length > 0 ? entries : null;
+  }
+
   /** Nest bodies are `string | object`; narrow before reading properties. */
   private asRecord(payload: string | object): Record<string, unknown> | null {
     return typeof payload === 'object' && payload !== null
@@ -141,6 +166,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
         return ERROR_CODES.UNSUPPORTED_FILE_TYPE;
       case HttpStatus.TOO_MANY_REQUESTS:
         return ERROR_CODES.RATE_LIMITED;
+      case HttpStatus.SERVICE_UNAVAILABLE:
+        return ERROR_CODES.SERVICE_UNAVAILABLE;
       default:
         return statusCode >= 500 ? ERROR_CODES.INTERNAL_ERROR : ERROR_CODES.VALIDATION_ERROR;
     }
@@ -168,6 +195,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const record = this.asRecord(payload);
     if (!record) {
       return undefined;
+    }
+
+    // Terminus reports a failed health check as
+    // `{ status: 'error', error: { <indicator>: { status, message } } }`.
+    // Without this branch a 503 arrived as a bare "Service Unavailable
+    // Exception" and the operator could not tell which dependency was down.
+    const failedChecks = this.terminusFailures(record);
+    if (failedChecks) {
+      return failedChecks;
     }
 
     const details = record['details'];

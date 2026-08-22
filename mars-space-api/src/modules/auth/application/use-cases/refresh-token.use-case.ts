@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { TokenService } from '../../../../core/security/token.service';
 import {
   AccountDeactivatedError,
@@ -12,6 +12,8 @@ import { RequestContext } from './login.use-case';
 
 @Injectable()
 export class RefreshTokenUseCase {
+  private readonly logger = new Logger(RefreshTokenUseCase.name);
+
   constructor(
     private readonly userRepository: UserRepository,
     private readonly refreshTokenRepository: RefreshTokenRepository,
@@ -22,12 +24,29 @@ export class RefreshTokenUseCase {
    * Rotates the session: the presented token is revoked and a fresh pair is
    * issued (§7). Rotation is what makes a stolen refresh token single-use — a
    * replay finds the row already revoked.
+   *
+   * Finding an *already revoked* row is more than a stale request: that token
+   * was rotated once and is being presented a second time, which means two
+   * parties hold it. Since we cannot tell the thief from the victim, the whole
+   * family is torn down and both are forced to log in again.
    */
   async execute(presentedToken: string, context: RequestContext = {}): Promise<AuthTokensDto> {
     const tokenHash = this.tokenService.hashRefreshToken(presentedToken);
     const stored = await this.refreshTokenRepository.findByHash(tokenHash);
 
-    if (!stored || !stored.isUsable()) {
+    if (!stored) {
+      throw new InvalidRefreshTokenError();
+    }
+
+    if (stored.isRevoked()) {
+      const revoked = await this.refreshTokenRepository.revokeAllForUser(stored.userId);
+      this.logger.warn(
+        `Refresh token reuse detected for user ${stored.userId} — revoked ${revoked} live session(s)`,
+      );
+      throw new InvalidRefreshTokenError();
+    }
+
+    if (stored.isExpired()) {
       throw new InvalidRefreshTokenError();
     }
 

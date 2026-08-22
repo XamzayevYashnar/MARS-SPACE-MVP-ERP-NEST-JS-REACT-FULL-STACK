@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/auth.store';
+import { Spinner } from '@/shared/ui';
 import { AUTH_UNAUTHORIZED_EVENT } from '@/shared/api/axios-instance';
 import { paths } from './paths';
 import type { UserRole } from '@/shared/types/common.types';
@@ -21,6 +22,7 @@ export function ProtectedRoute({ children, roles }: ProtectedRouteProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken));
+  const isBootstrapped = useAuthStore((s) => s.isBootstrapped);
   const role = useAuthStore((s) => s.user?.role);
 
   useEffect(() => {
@@ -32,6 +34,17 @@ export function ProtectedRoute({ children, roles }: ProtectedRouteProps) {
     window.addEventListener(AUTH_UNAUTHORIZED_EVENT, onUnauthorized);
     return () => window.removeEventListener(AUTH_UNAUTHORIZED_EVENT, onUnauthorized);
   }, [navigate, location.pathname]);
+
+  // The access token is memory-only, so straight after a reload there is none
+  // yet. Redirecting on that would bounce a signed-in admin to the login screen
+  // every time they refresh the page; wait for the silent refresh to settle.
+  if (!isBootstrapped) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <Spinner size="lg" label="Restoring your session" />
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (

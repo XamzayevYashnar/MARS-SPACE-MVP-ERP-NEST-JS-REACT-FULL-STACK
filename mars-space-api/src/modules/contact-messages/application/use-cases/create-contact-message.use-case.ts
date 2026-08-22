@@ -37,15 +37,25 @@ export class CreateContactMessageUseCase {
       message: stripHtml(dto.message).slice(0, 4000),
     });
 
-    await this.telegramNotifier.notifyNewContactMessage({
-      id: message.id,
-      fullName: message.fullName,
-      phone: message.phone,
-      email: message.email,
-      subject: message.subject,
-      message: message.message,
-      createdAt: message.createdAt,
-    });
+    // Dispatched without blocking: the message is already stored, so the
+    // visitor should not wait out Telegram's latency to see the form succeed.
+    void this.telegramNotifier
+      .notifyNewContactMessage({
+        id: message.id,
+        fullName: message.fullName,
+        phone: message.phone,
+        email: message.email,
+        subject: message.subject,
+        message: message.message,
+        createdAt: message.createdAt,
+      })
+      .catch((error: unknown) => {
+        this.logger.error(
+          `Telegram alert for contact message ${message.id} failed: ${
+            error instanceof Error ? error.message : 'unknown error'
+          }`,
+        );
+      });
 
     return { accepted: true, message: ACCEPTED_MESSAGE };
   }

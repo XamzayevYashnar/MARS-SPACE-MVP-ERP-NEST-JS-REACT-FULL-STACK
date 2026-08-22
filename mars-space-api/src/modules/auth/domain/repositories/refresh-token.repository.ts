@@ -8,6 +8,11 @@ export abstract class RefreshTokenRepository {
   abstract revokeAllForUser(userId: string): Promise<number>;
   /** Revokes every session of a user except the one presenting the request. */
   abstract revokeAllForUserExcept(userId: string, keepId: string): Promise<number>;
-  /** Housekeeping: drops rows that are already expired or revoked. */
+  /**
+   * Housekeeping: drops rows whose `expiresAt` is already in the past.
+   *
+   * Revoked-but-unexpired rows are deliberately kept: they are what lets
+   * `RefreshTokenUseCase` tell a replayed token from an unknown one.
+   */
   abstract deleteExpired(before: Date): Promise<number>;
 }

@@ -1,4 +1,28 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "test", "dist", "coverage", "**/*spec.ts", "prisma/seed.ts", "prisma/seeders"]
+  // TypeScript 6 refuses to infer the output layout (TS5011); pinning the root
+  // to `src` is also what keeps the entrypoint at `dist/main.js`.
+  "compilerOptions": {
+    "rootDir": "./src",
+    // Must live inside outDir. Left at its default it landed in the project
+    // root, where `deleteOutDir` could not reach it: tsc then read a build
+    // info describing output that had just been deleted, concluded everything
+    // was up to date, and emitted nothing — a green `nest build` with an empty
+    // `dist/`.
+    "tsBuildInfoFile": "./dist/tsconfig.build.tsbuildinfo"
+  },
+  // `scripts` has to be excluded, not just left out of the runtime path.
+  // While it was compiled, the common source root spanned `src/` *and*
+  // `scripts/`, so tsc mirrored that structure and emitted `dist/src/main.js`
+  // — while `start:prod` and the Dockerfile CMD both run `dist/main.js`.
+  // The production container crashed on start with MODULE_NOT_FOUND.
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist",
+    "coverage",
+    "scripts",
+    "prisma",
+    "**/*spec.ts"
+  ]
 }

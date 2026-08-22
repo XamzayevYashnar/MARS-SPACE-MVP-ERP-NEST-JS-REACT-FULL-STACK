@@ -13,6 +13,31 @@ export interface SeededAccounts {
   managerId: string;
 }
 
+/** The placeholders shipped in `.env.example`; never valid outside development. */
+const PLACEHOLDER_PASSWORDS = new Set(['ChangeMe123!', 'changeme', 'password', 'admin']);
+
+/**
+ * Refuses to mint a production account behind a password that is published in
+ * the repository. `docker-compose.yml` defaults `SEED_ADMIN_PASSWORD` to
+ * `ChangeMe123!`, so a deployment that forgot to override it would otherwise
+ * come up with a publicly known SUPER_ADMIN login.
+ */
+function assertProductionSecret(variable: string, value: string): void {
+  if (process.env.NODE_ENV !== 'production') {
+    return;
+  }
+
+  if (PLACEHOLDER_PASSWORDS.has(value)) {
+    throw new Error(
+      `${variable} is still set to the example placeholder. Set a real password before seeding a production database.`,
+    );
+  }
+
+  if (value.length < 12) {
+    throw new Error(`${variable} must be at least 12 characters in production.`);
+  }
+}
+
 /**
  * Creates the two staff accounts the system needs to be usable.
  *
@@ -24,6 +49,9 @@ export async function seedAdmins(prisma: PrismaClient): Promise<SeededAccounts> 
   const adminPassword = process.env.SEED_ADMIN_PASSWORD ?? 'ChangeMe123!';
   const managerEmail = (process.env.SEED_MANAGER_EMAIL ?? 'manager@marsspace.uz').toLowerCase();
   const managerPassword = process.env.SEED_MANAGER_PASSWORD ?? 'ChangeMe123!';
+
+  assertProductionSecret('SEED_ADMIN_PASSWORD', adminPassword);
+  assertProductionSecret('SEED_MANAGER_PASSWORD', managerPassword);
 
   const superAdmin = await prisma.user.upsert({
     where: { email: adminEmail },

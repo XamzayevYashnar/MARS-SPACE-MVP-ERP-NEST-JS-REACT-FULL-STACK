@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
+import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { AppConfig } from './core/config/app.config';
 import { CoreModule } from './core/core.module';
 import { PrismaModule } from './database/prisma.module';
@@ -37,6 +39,8 @@ import { UsersModule } from './modules/users/users.module';
   imports: [
     CoreModule,
     PrismaModule,
+    // Drives the refresh-token reaper in AuthModule.
+    ScheduleModule.forRoot(),
     ThrottlerModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
@@ -65,6 +69,10 @@ import { UsersModule } from './modules/users/users.module';
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },
     { provide: APP_FILTER, useClass: PrismaExceptionFilter },
+    // Registered before the transform so its budget covers the whole handler.
+    // Built by hand rather than `useClass`: the constructor takes a plain
+    // `number`, which Nest would try to resolve as a provider called `Number`.
+    { provide: APP_INTERCEPTOR, useFactory: () => new TimeoutInterceptor() },
     { provide: APP_INTERCEPTOR, useClass: ResponseTransformInterceptor },
     { provide: APP_GUARD, useClass: ThrottlerGuard },
     { provide: APP_GUARD, useClass: JwtAuthGuard },

@@ -9,6 +9,7 @@ import { RefreshTokenUseCase } from './application/use-cases/refresh-token.use-c
 import { RefreshTokenRepository } from './domain/repositories/refresh-token.repository';
 import { JwtStrategy } from './infrastructure/jwt.strategy';
 import { PrismaRefreshTokenRepository } from './infrastructure/persistence/prisma-refresh-token.repository';
+import { RefreshTokenCleanupService } from './infrastructure/refresh-token-cleanup.service';
 import { AuthController } from './presentation/auth.controller';
 
 @Module({
@@ -17,6 +18,7 @@ import { AuthController } from './presentation/auth.controller';
   providers: [
     { provide: RefreshTokenRepository, useClass: PrismaRefreshTokenRepository },
     JwtStrategy,
+    RefreshTokenCleanupService,
     LoginUseCase,
     RefreshTokenUseCase,
     LogoutUseCase,

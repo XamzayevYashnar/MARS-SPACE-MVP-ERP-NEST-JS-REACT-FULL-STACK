@@ -27,6 +27,19 @@ describe('ProtectedRoute', () => {
     useAuthStore.getState().clearSession();
   });
 
+  // The access token is memory-only, so a reload starts without one while the
+  // silent refresh is still in flight. Redirecting on that would bounce a
+  // signed-in admin to the login screen on every F5.
+  it('waits for the session bootstrap instead of redirecting', () => {
+    useAuthStore.setState({ accessToken: null, user: null, isBootstrapped: false });
+
+    renderAt('/admin');
+
+    expect(screen.getByRole('status')).toBeInTheDocument();
+    expect(screen.queryByText('login page')).not.toBeInTheDocument();
+    expect(screen.queryByText('secret dashboard')).not.toBeInTheDocument();
+  });
+
   it('redirects unauthenticated users to the login page', () => {
     useAuthStore.getState().clearSession();
     renderAt('/admin');

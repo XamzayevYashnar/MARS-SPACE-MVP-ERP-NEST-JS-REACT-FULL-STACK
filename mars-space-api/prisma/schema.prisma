@@ -3,11 +3,19 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../generated"
+  // No custom `output`. Every source file imports from `@prisma/client`, which
+  // re-exports whatever sits in `node_modules/.prisma/client`. Emitting to
+  // `../generated` instead left that stub empty, so the imports resolved to
+  // nothing on any clean install — including the Docker build, where
+  // `prisma generate` runs against a fresh node_modules.
 }
 
 datasource db {
   provider = "postgresql"
+  // Required on Prisma 5, which this project pins. A Prisma 7 editor extension
+  // may offer to strip this line and move the URL into `prisma.config.ts` —
+  // decline it: on 5.22 the schema stops validating without it
+  // ("Argument url is missing"), and every CLI command fails.
   url      = env("DATABASE_URL")
 }
 
@@ -105,6 +113,8 @@ model RefreshToken {
   createdAt DateTime  @default(now())
 
   @@index([userId])
+  // The nightly reaper scans by expiry; without this it walks the whole table.
+  @@index([expiresAt])
   @@map("refresh_tokens")
 }
 
@@ -259,6 +269,8 @@ model Lead {
 
   @@index([status, createdAt])
   @@index([courseId])
+  // The admin list filters by assignee ("my leads"), which had no index.
+  @@index([assignedToId])
   @@map("leads")
 }
 

@@ -204,8 +204,18 @@ describe('Public content (e2e)', () => {
       expect(response.body.data).not.toHaveProperty('internal_flags');
     });
 
-    it('answers the health probe with a database check', async () => {
+    // Liveness must not depend on anything the process cannot control. It used
+    // to run Terminus' heap check, which answered 503 once the heap passed
+    // 512 MB — and the container HEALTHCHECK polls this path.
+    it('answers the liveness probe without touching any dependency', async () => {
       const response = await request(app.getHttpServer()).get('/health').expect(200);
+
+      expect(response.body.data.status).toBe('ok');
+      expect(typeof response.body.data.uptimeSeconds).toBe('number');
+    });
+
+    it('answers the readiness probe with a database check', async () => {
+      const response = await request(app.getHttpServer()).get('/health/ready').expect(200);
 
       expect(response.body.data.info.database.status).toBe('up');
     });

@@ -18,15 +18,13 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
     const app = configService.getOrThrow<AppConfig>('app');
 
     super({
-      log: app.isProduction
-        ? [
-            { emit: 'event', level: 'warn' },
-            { emit: 'event', level: 'error' },
-          ]
-        : [
-            { emit: 'event', level: 'warn' },
-            { emit: 'event', level: 'error' },
-          ],
+      // Warnings and errors are forwarded to the Nest logger in `onModuleInit`.
+      // Query logging stays off everywhere: it would echo parameter values —
+      // including password hashes and refresh-token digests — into the logs.
+      log: [
+        { emit: 'event', level: 'warn' },
+        { emit: 'event', level: 'error' },
+      ],
       errorFormat: app.isProduction ? 'minimal' : 'pretty',
     });
   }

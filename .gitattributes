@@ -1,0 +1,18 @@
+# Normalise line endings so the same file lints identically on Windows,
+# macOS and Linux CI. Without this, Prettier's `endOfLine: lf` reports
+# every line of every checked-out file as an error on Windows.
+* text=auto eol=lf
+
+# Binary assets must never be touched.
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.webp   binary
+*.ico    binary
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.pdf    binary
+
+# Lockfiles are generated: keep diffs out of review.
+pnpm-lock.yaml  linguist-generated=true -diff

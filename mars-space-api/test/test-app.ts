@@ -25,7 +25,9 @@ export async function createTestApp(): Promise<TestContext> {
 
   const app = moduleRef.createNestApplication<NestExpressApplication>({ logger: false });
 
-  app.setGlobalPrefix('api/v1', { exclude: ['health'] });
+  // Mirrors main.ts: `exclude` matches exact paths, so the readiness route has
+  // to be listed alongside the liveness one.
+  app.setGlobalPrefix('api/v1', { exclude: ['health', 'health/ready'] });
   app.use(cookieParser());
   app.useGlobalPipes(
     new ValidationPipe({

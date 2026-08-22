@@ -62,7 +62,7 @@ Online payments, video lessons / streaming, homework and grading, attendance tra
 | Logging | `nestjs-pino` (JSON in prod, pretty in dev, request-id correlation) |
 | Rate limiting | `@nestjs/throttler` |
 | Security | `helmet`, CORS whitelist, payload size limits |
-| Health | `@nestjs/terminus` → `/health` (db + memory) |
+| Health | `@nestjs/terminus` → `/health` (liveness, no dependencies) and `/health/ready` (DB check) |
 | File upload | `multer` → local disk in dev, S3-compatible adapter interface |
 | Testing | Jest (unit) + Supertest (e2e) |
 | Quality | ESLint (`@typescript-eslint`), Prettier, Husky + lint-staged, Commitlint (Conventional Commits) |
@@ -565,7 +565,7 @@ Implement a global `ResponseTransformInterceptor`:
 }
 ```
 
-Error codes to define in `common/constants/error-codes.ts`: `VALIDATION_ERROR`, `UNAUTHORIZED`, `INVALID_CREDENTIALS`, `TOKEN_EXPIRED`, `FORBIDDEN`, `NOT_FOUND`, `ALREADY_EXISTS`, `CONFLICT`, `GROUP_CAPACITY_EXCEEDED`, `FILE_TOO_LARGE`, `UNSUPPORTED_FILE_TYPE`, `RATE_LIMITED`, `INTERNAL_ERROR`.
+Error codes to define in `common/constants/error-codes.ts`: `VALIDATION_ERROR`, `UNAUTHORIZED`, `INVALID_CREDENTIALS`, `TOKEN_EXPIRED`, `FORBIDDEN`, `NOT_FOUND`, `ALREADY_EXISTS`, `CONFLICT`, `GROUP_CAPACITY_EXCEEDED`, `FILE_TOO_LARGE`, `UNSUPPORTED_FILE_TYPE`, `RATE_LIMITED`, `INTERNAL_ERROR`, `SERVICE_UNAVAILABLE` (a dependency is down — retryable, unlike INTERNAL_ERROR).
 
 Map Prisma errors in a dedicated filter: `P2002 → 409 ALREADY_EXISTS`, `P2025 → 404 NOT_FOUND`, `P2003 → 409 CONFLICT`.
 
@@ -603,7 +603,8 @@ All list endpoints accept: `page` (default 1), `limit` (default 12, max 100), `s
 | GET | `/settings` | Public settings bundle (contacts, socials, hero stats, SEO defaults) |
 | POST | `/leads` | **Lead capture.** Throttle 3/min/IP. Honeypot field `website` must be empty. Triggers Telegram notification. |
 | POST | `/contact` | Contact form. Throttle 3/min/IP. |
-| GET | `/health` | Liveness + DB check |
+| GET | `/health` | Liveness — process is up; touches no dependency |
+| GET | `/health/ready` | Readiness — real DB round-trip |
 
 #### Admin — `/api/v1/admin` (JWT + roles)
 
@@ -744,7 +745,7 @@ Validate every variable with Joi in `core/config/validation.schema.ts`; the app 
 
 ## 13. Definition of Done (acceptance criteria)
 
-- [ ] `docker compose up` starts the API; `/health` returns 200 with DB connected.
+- [ ] `docker compose up` starts the API; `/health/ready` returns 200 with DB connected.
 - [ ] Prisma migrations apply to an empty database with no manual SQL.
 - [ ] `pnpm db:seed` populates realistic demo data and is safe to run twice.
 - [ ] Every endpoint in §6.3 exists, is documented in Swagger, and returns the §6.1 envelope.
